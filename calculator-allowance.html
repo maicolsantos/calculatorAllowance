@@ -119,7 +119,7 @@
 
     const calculatorAllowance = (hourMinutes, minutesAllowance = 48) => {
       let hour = Number(hourMinutes.split(':')[0]);
-      let minutes = Number(hourMinutes.split(':')[1]);
+      let minutes = Number(hourMinutes.split(':')[1]) || 0;
       const totalMinutes = minutes + Number(minutesAllowance);
 
       if (totalMinutes >= 60) {
