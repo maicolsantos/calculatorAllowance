@@ -49,13 +49,11 @@
   </section>
   <script>
     const hourMask = '99:99';
-    const minutesMask = '99';
     const fieldsIsValidate = document.querySelectorAll('.is-validate')
     const hourMinutesInput = document.getElementById('hourMinutesInput');
     const minutesInput = document.getElementById('minutesInput');
 
     VMasker(hourMinutesInput).maskPattern(hourMask);
-    VMasker(minutesInput).maskPattern(minutesMask);
 
     const numberPadStart = (numberValue) => (
       String(numberValue).padStart(2, 0)
@@ -99,8 +97,8 @@
       const totalMinutes = minutes + Number(minutesAllowance);
 
       if (totalMinutes >= 60) {
-        hour+=1;
-        minutes = totalMinutes - 60;
+        hour = hour + Math.floor(totalMinutes / 60);
+        minutes = totalMinutes % 60;
       } else {
         minutes = totalMinutes;
       }
