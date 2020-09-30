@@ -52,12 +52,23 @@
     const fieldsIsValidate = document.querySelectorAll('.is-validate')
     const hourMinutesInput = document.getElementById('hourMinutesInput');
     const minutesInput = document.getElementById('minutesInput');
+    const resultHTML = document.getElementById('result');
 
     VMasker(hourMinutesInput).maskPattern(hourMask);
 
     const numberPadStart = (numberValue) => (
       String(numberValue).padStart(2, 0)
     );
+
+    const handleClipboard = () => {
+      this.event.preventDefault();
+
+      const copyText = document.getElementById('resultHourAllowance');
+
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand('copy');
+    };
 
     const applyResult = () => {
       const minutesInputValue = minutesInput.value || 48;
@@ -68,7 +79,22 @@
 
         resultHTML.innerHTML = `
           <h2 class="title">Hora Calculada</h2>
-          <span class="tag is-success is-medium">${resultCalculatorAllowance}</span>
+          <div class="field has-addons">
+            <div class="control">
+              <input
+                id="resultHourAllowance"
+                class="input"
+                type="text"
+                readonly
+                value="${resultCalculatorAllowance}"
+              >
+            </div>
+            <div class="control">
+              <button class="button is-light" onclick="handleClipboard(this)">
+                <img src="assets/copy.svg" width="13" alt="copy" />
+              </button>
+            </div>
+          </div>
         `;
       }
     };
